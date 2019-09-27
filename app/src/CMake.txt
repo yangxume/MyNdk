@@ -1,0 +1,59 @@
+
+Android Studio CMake 使用
+
+1.环境配置：
+https://developer.android.google.cn/ndk/guides/cmake.html
+
+2.CMake构建参数保存位置：
+Android Studio 中 CMake 构建的构建参数保存于 cmake_build_command.txt 文件。
+<project-root>/<module-root>/.externalNativeBuild/cmake/<build-type>/<ABI>/
+提示：在 Android Studio 中，您可使用键盘快捷键 (shift+shift) 快速浏览这些文件，并在输入字段输入 cmake_build_command.txt。
+
+3.CMake构建参数分析
+
+Executable : /Users/xuyang/develop_util/sdk/cmake/3.10.2.4988404/bin/cmake
+arguments :
+
+-H/Users/xuyang/Documents/work_android/MyNdk/app
+
+-B/Users/xuyang/Documents/work_android/MyNdk/app/.externalNativeBuild/cmake/debug/armeabi-v7a
+
+#目标 ABI
+-DANDROID_ABI=armeabi-v7a
+
+-DANDROID_PLATFORM=android-15
+
+#构建 LIBRARY 目标文件之后，CMake 在您的主机上存放这些文件的位置。
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/xuyang/Documents/work_android/MyNdk/app/build/intermediates/cmake/debug/obj/armeabi-v7a
+
+#类似于 ndk-build 工具的构建类型。变量值为 Release 和 Debug。
+-DCMAKE_BUILD_TYPE=Debug
+
+ #您主机上安装的 NDK 根目录的绝对路径
+-DANDROID_NDK=/Users/xuyang/develop_util/sdk/ndk-bundle
+
+-DCMAKE_CXX_FLAGS=-std=c++11
+
+-DCMAKE_SYSTEM_NAME=Android
+
+-DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a
+
+-DCMAKE_SYSTEM_VERSION=15
+
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+-DCMAKE_ANDROID_NDK=/Users/xuyang/develop_util/sdk/ndk-bundle
+
+#CMake 用于对 Android 进行交叉编译的 android.toolchain.cmake 文件的路径。通常情况下，此文件位于 $NDK/build/cmake/ 目录
+-DCMAKE_TOOLCHAIN_FILE=/Users/xuyang/develop_util/sdk/ndk-bundle/build/cmake/android.toolchain.cmake
+
+#表示 CMake 使用 ninja 构建系统，为您的应用编译和链接 C/C++ 源文件
+-G Ninja
+
+#启动原生构建系统的工具。Gradle 插件为与 Android SDK 捆绑的 CMake ninja 生成器设置此值。
+-DCMAKE_MAKE_PROGRAM=/Users/xuyang/develop_util/sdk/cmake/3.10.2.4988404/bin/ninja
+
+jvmArgs :
+
+
+
